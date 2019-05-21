@@ -1,6 +1,6 @@
-function lastBlankIndex(s){
-  for(let i = s.length-2; i >= 0; i--){
-    if(s[i] === ' '){
+function lastBlankIndex(inputString){
+  for(let i = inputString.length-2; i >= 0; i--){
+    if(inputString[i]===' '){
       return i;
     }
   }
@@ -17,31 +17,39 @@ function getWord(s,index){
 }
 
 function reverseString(input){
-  const s = " "+input+" ";
-  const index = lastBlankIndex(s);
-  const word = getWord(s, index+1);
-  return word;
+  const index = lastBlankIndex(input);
+  const word = getWord(input, index+1);
+  return [word, index];
 }
 
-// function cutString(getting,resultWord){
-//   const inputString = input;
-//   let resultWord = reverseString(inputString.trim());
-//   if(inputString.indexOf(resultWord) > 0){
-//     resultString += resultWord;
-//     inputString.replace(resultWord,'');
-//     reverseString(inputString.trim());
-    
-//   }else{
-//     return resultString
-//   }
-  
-// }
+function assemble(inputString){
+  let input = " "+inputString+" "
+  let result = ''
+  while(input.length>2){
+    const word = reverseString(input)[0]
+    const index = reverseString(input)[1]
+    result += index ? word+' ' : word
+    input = input.substring(0,index+1)
+  }
+  return result
+}
 
-// function result(){
-//   const resultWord = reverseString(input)
-//   const cut = cutString(getting,resultWord)
-//   return cut
-// }
+// test('simple', ()=>{
+//   expect(reverseString('I am a boy.')).toBe('a');
+// })
 
-//
-console.log(result('I am a boy.'))
+test('getWord', ()=>{
+  expect(getWord('abc ', 0)).toBe('abc');
+  expect(getWord('abc d', 0)).toBe('abc');
+  expect(getWord('a bc d', 2)).toBe('bc');
+})
+
+test('lastBlankIndex', ()=>{
+  expect(lastBlankIndex(' a ')).toBe(0);
+  expect(lastBlankIndex(' a b ')).toBe(2);
+})
+
+test('assemble', ()=>{
+  expect(assemble('I am a boy.')).toBe('boy. a am I');
+
+})

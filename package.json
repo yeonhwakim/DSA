@@ -1,0 +1,23 @@
+{
+  "name": "dsa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jest": "^24.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeonhwakim/DSA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeonhwakim/DSA/issues"
+  },
+  "homepage": "https://github.com/yeonhwakim/DSA#readme"
+}
