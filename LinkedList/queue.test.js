@@ -8,8 +8,9 @@ function Queue() {
 
   this.deque = () => {
     if(this.dequeStack.isEmpty()) {
-      this.dequeStack.tail = this.enqueStack.head;
-      this.dequeStack.head = this.enqueStack.tail;
+      while(!this.enqueStack.isEmpty()){
+        this.dequeStack.push(this.enqueStack.pop())
+      }
     }
 
     return this.dequeStack.pop();
@@ -17,12 +18,11 @@ function Queue() {
 }
 
 function Stack() {
-  this.head;
-  this.tail;
-
-  this.push = (input) => {
+  this.head = null
+  this.tail = null
+  this.push = (newValue) => {
     const newNode = {
-      value: input,
+      value: newValue,
       next: '',
       prev: this.tail
     };
@@ -30,20 +30,12 @@ function Stack() {
       this.head = newNode;
       this.tail = newNode;
     } 
-    if (this.tail) {
-      if(this.haed === this.tail){
-        this.head.next = newNode;
-      }
-      this.tail.next = newNode;
-    }
-
     this.tail = newNode;
   };
 
   this.pop = () => {
     const result = this.tail.value;
-    // this.tail = this.tail.prev;  test push, test stack is empty
-    this.tail = this.tail.next;
+    this.tail = this.tail.prev;
     return result;
   };
 
@@ -52,31 +44,31 @@ function Stack() {
   };
 }
 
-// test('push', () => {
-//   const stack = new Stack();
+test('push', () => {
+  const stack = new Stack();
 
-//   stack.push(1);
-//   stack.push(2);
-//   stack.push(3);
+  stack.push(1);
+  stack.push(2);
+  stack.push(3);
 
-//   expect(stack.pop()).toBe(3);
-//   expect(stack.pop()).toBe(2);
-//   expect(stack.pop()).toBe(1);
-// });
+  expect(stack.pop()).toBe(3);
+  expect(stack.pop()).toBe(2);
+  expect(stack.pop()).toBe(1);
+});
 
-// test('stack is empty', () => {
-//   const stack = new Stack();
+test('stack is empty', () => {
+  const stack = new Stack();
 
-//   expect(stack.isEmpty()).toBe(true);
+  expect(stack.isEmpty()).toBe(true);
 
-//   stack.push(1);
+  stack.push(1);
 
-//   expect(stack.isEmpty()).toBe(false);
+  expect(stack.isEmpty()).toBe(false);
 
-//   stack.pop();
+  stack.pop();
 
-//   expect(stack.isEmpty()).toBe(true);
-// });
+  expect(stack.isEmpty()).toBe(true);
+});
 
 test('queue', () => {
   const queue = new Queue();
@@ -84,6 +76,7 @@ test('queue', () => {
   queue.enque(1);
   queue.enque(2);
   queue.enque(3);
+ 
   expect(queue.deque()).toBe(1);
   expect(queue.deque()).toBe(2);
   queue.enque(4);
