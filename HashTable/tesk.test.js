@@ -13,10 +13,10 @@ function countResult(value) {
   let even = 0
   let odd = 0
 
-  for (var i in circulation) {
-    circulation[i] % 2 === 0 ? even++ : odd++
-  }
-
+  Object.keys(circulation).map((c)=>{
+    circulation[c] % 2 === 0 ? even++ : odd++
+  })
+  
   return [even, odd]
 }
 
